@@ -1,4 +1,4 @@
-# lstm-load-forecasting
+# Electricity load forecasting with LSTM
 Demo project for electricity load forecasting with a LSTM (abbr. "Long Term Short Term Memory", a Recurrent Neural Network) with data for Switzerland (01/2015 - 04/2017).
 
 ### Data: 
