@@ -38,15 +38,15 @@ Python
 Different "categories" (named data modules in the data helper functions...) of models have been defined and then for each category, a number of models based on possible parameter combinations have been estimated:
 
 ```
-* [Model 2](notebooks/[ 2 ] ENTSOE Forecast only.ipynb): Using only the ENTSO-E forecast as input.
-* [Model 3](notebooks/[ 3 ] Calendar only.ipynb): Using only the calendar dummy variables as input.
-* [Model 4](notebooks/[ 4 ] Weather only.ipynb): Using only the weather data as input.
-* [Model 5](notebooks/[ 5 ] Weather & Calendar.ipynb): Using weather data and calendar dummies as input.
-* [Model 6](notebooks/[ 6 ] All Modules.ipynb): Using ENTSO-E, calendar and weather as input. 
+* [Model 2](notebooks/2_entsoe_forecast_only.ipynb): Using only the ENTSO-E forecast as input.
+* [Model 3](notebooks/3_calendar_only.ipynb): Using only the calendar dummy variables as input.
+* [Model 4](notebooks/4_weather_only.ipynb): Using only the weather data as input.
+* [Model 5](notebooks/5_weather_calendar.ipynb): Using weather data and calendar dummies as input.
+* [Model 6](notebooks/6_all_modules.ipynb): Using ENTSO-E, calendar and weather as input. 
 ```
-
-The best models models in category 3 and 6 then are compared in the [Forecast Comparison](notebooks/Forecast Comparison.ipynb) notebook with a TBATS and a ARIMA model forecast that have been generated in the respective R notebooks.
-The comparison then is further extended with rolling window (static, using at each time step the newly available data) in the [Rolling Forecast](notebooks/Rolling Forecast.ipynb) notebook.
+The [LSTM model results notebook](notebooks/lstm_model_results.ipynb) then combines all results.
+The best models models in category 3 and 6 then are compared in the [Forecast Comparison](notebooks/forecast_comparison.ipynb) notebook with a TBATS and a ARIMA model forecast that have been generated in the respective R notebooks.
+The comparison then is further extended with rolling window (static, using at each time step the newly available data) in the [Rolling Forecast](notebooks/rolling_forecast.ipynb) notebook.
 
 
 ### Acknowledgments and References
