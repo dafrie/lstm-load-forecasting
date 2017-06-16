@@ -1,0 +1,42 @@
+---
+title: "TBATS Forecast"
+output: html_notebook
+---
+
+```{r}
+library(readr)
+library(forecast)
+
+# Load data
+library(readr)
+ds <- read_delim("./data/fulldataset.csv", ";", escape_double = FALSE, col_types = cols(X1 = col_datetime(format = "%Y-%m-%d %H:%M:%S%z")), trim_ws = TRUE)
+colnames(ds)[1] <- "time"
+```
+Split data in train & test
+```{r}
+trainset <- subset(ds, time <= '2017-02-01')
+# If we take the full sample, we get divergent forecasts
+trainset <- subset(trainset, time > '2015-08-01')
+testset <- subset(ds, time > '2017-02-01')
+
+load <- na.omit(trainset$actual)
+# Set seasonality to daily, weekly and yearly
+load <- msts(load, seasonal.periods = c(24,168,8766))
+```
+
+Fit TBATS model
+```{r}
+fit <- tbats(load)
+```
+
+Plot forecast
+```{r}
+plot(forecast(fit, h=5000))
+```
+
+Save point forecast
+```{r}
+fc_mean <- fc[["mean"]]
+write.csv(fc_mean, "./data/tbats_forecast_01022017-h5000.csv")
+```
+
