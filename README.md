@@ -16,20 +16,20 @@ Python
 
 ### Data: 
 
--   Hourly series for actual load and forecasted load. Source:[ENTSO-E API](https://transparency.entsoe.eu/)
--   Hourly series for temperature (in °F) and qualitative measurement of weather condition in the major cities in Switzerland. Source: [Dark Sky API](https://darksky.net/)
+-   Hourly series for actual load and forecasted load. Source: [ENTSO-E API](https://transparency.entsoe.eu/)
+-   Hourly series for temperature (in °F) and a mapping of the qualitative weather in one of the 3 categories defined in the configuration file. These historical observations are collected for the major cities in Switzerland. Source: [Dark Sky API](https://darksky.net/)
 -   Calendar dummy variables. Holidays, month, day of week, hour of day.
 -   In total: 20756x79 observations
 
 ### File structure:
 
     .
-    ├── data                   		# Load, calendar and weather data
-    ├── lstm_load_forecasting   	# Helper functions for data preparation and LSTM model building
-    ├── models					   	# All trained models saved in HDF5 file format
-    ├── notebooks                   # LSTM Model selection and forecast comparison
-    ├── results                   	# Results and parameters from model training run comparison
-    ├── config.json                 # Config file with API Keys, Weather stations, holiday calendar.  
+    ├── data						# Load, calendar and weather data
+    ├── lstm_load_forecasting		# Helper functions for data preparation and LSTM model building
+    ├── models						# All trained models saved in HDF5 file format
+    ├── notebooks					# LSTM Model selection and forecast comparison
+    ├── results						# Results and parameters from model training run comparison
+    ├── config.json					# Config file with API Keys, Weather stations, holiday calendar.  
     ├── LICENSE
     └── README.md
 
