@@ -130,7 +130,7 @@ def create_model(layers=None, sample_size=None, batch_size=1, timesteps=1, featu
 
 
 def train_model(model=None, y=None, X=None, mode='train_on_batch', batch_size=1, timesteps=1, 
-                epochs=1, rearrange=False, verbose=0, validation_split=0.1, early_stopping=True):
+                epochs=1, rearrange=False, verbose=0, validation_split=0.1, early_stopping=True, min_delta=0.006, patience=2):
     """ Trains the model
     
     ...
@@ -152,7 +152,7 @@ def train_model(model=None, y=None, X=None, mode='train_on_batch', batch_size=1,
     # write_graph=True,   write_images=True)
     # Set early stopping (check if model has converged) callbacks
     if early_stopping:
-        early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0.006, patience=2, 
+        early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=min_delta, patience=patience, 
                                                    verbose=verbose, mode='auto')
     else:
         early_stop = keras.callbacks.Callback()
@@ -286,7 +286,7 @@ def evaluate_model(model=None, X=None, y=None, batch_size=1, timesteps=None, ver
 
 
 def get_predictions(model=None, X=None, batch_size=1, timesteps=1, verbose=0):
-    
+        
     max_batch_count = int(X.shape[0] / batch_size)
     
     if (max_batch_count * batch_size) < (X.shape[0]) and verbose > 0:
@@ -295,7 +295,7 @@ def get_predictions(model=None, X=None, batch_size=1, timesteps=1, verbose=0):
     
     X = X[0:max_batch_count*batch_size]
     X = np.reshape(np.array(X), (X.shape[0], timesteps, X.shape[1]))
-    predictions = model.predict(X, batch_size=batch_size, verbose=verbose)
+    predictions = model.predict(x=X, batch_size=batch_size, verbose=verbose)
     
     return predictions
 

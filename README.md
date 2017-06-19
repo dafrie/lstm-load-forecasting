@@ -8,7 +8,6 @@ This will install also already most of the packages used in this project and wil
 
 ### Main packages used
 
-Python
 ```
 * [Keras 2.0.2](https://github.com/fchollet/keras) - High-level Neural Network API used for LSTM modelling. Backend used was TensorFlow.
 * [forecast 8.0](https://cran.r-project.org/web/packages/forecast/index.html) - Forecasting package for R used for TBATS and ARIMA benchmark forecasts. 
@@ -19,7 +18,7 @@ Python
 -   Hourly series for actual load and forecasted load. Source: [ENTSO-E API](https://transparency.entsoe.eu/)
 -   Hourly series for temperature (in °F) and a mapping of the qualitative weather in one of the 3 categories defined in the configuration file. These historical observations are collected for the major cities in Switzerland. Source: [Dark Sky API](https://darksky.net/)
 -   Calendar dummy variables. Holidays, month, day of week, hour of day.
--   In total: 20756x79 observations
+-   In total: 20756x78 observations
 
 ### File structure:
 
@@ -36,7 +35,6 @@ Python
 ### Notebooks
 
 Different "categories" (named data modules in the data helper functions...) of models have been defined and then for each category, a number of models based on possible parameter combinations have been estimated:
-
 
 * [Model 2](notebooks/2_entsoe_forecast_only.ipynb): Using only the ENTSO-E forecast as input.
 * [Model 3](notebooks/3_calendar_only.ipynb): Using only the calendar dummy variables as input.

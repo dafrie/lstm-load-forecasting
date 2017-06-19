@@ -101,6 +101,74 @@ for(i in seq_along(fc_days_utc))
 write.csv(pred, file="./data/arma_rolling_fc.csv")
 ```
 
+Now with all data
+```{r}
+training_ex <- subset(training, select = c(4:11, 12,13,15,16,18,19,21,22,24,25,27,28,30,31,33,34,36:76))
+test_ex <- subset(test, select = c(4:11, 12,13,15,16,18,19,21,22,24,25,27,28,30,31,33,34,36:76))
+
+fit2 <- auto.arima(training$actual, xreg=training_ex, seasonal=FALSE)
+fc2 <- forecast(fit2, xreg=test_ex)
+plot(fc2, ylim = c(0,12000))
+write.csv(fc2$mean, file='./data/arma_fc2.csv')
+
+```
+
+```{r}
+starting_utc <- tail(training$time + hours(1), n=1)
+ending_utc <- tail(test$time, n=1)
+starting_loc <- starting_utc
+ending_loc <- ending_utc
+attributes(starting_loc)$tzone <- "Europe/Zurich"
+attributes(ending_loc)$tzone <- "Europe/Zurich"
+
+fc_days <- seq(starting_loc, ending_loc, "DSTday")
+predictions = seq(starting_loc, ending_loc, "hour")
+attributes(predictions)$tzone <- "UTC"
+
+# Store the order terms
+order <- arimaorder(fit2)
 
 
+```
+Loop through windows
+```{r}
+fc_days_utc <- seq(starting_utc, ending_utc, "DSTday") 
+for(i in seq_along(fc_days_utc))
+{
+  hour_utc <- fc_days_utc[i]
+  attributes(hour_utc)$tzone <- "UTC"
+  
+  # The first iteration can just use the previous estimated model
+  if(i == 1){
+    l_test <- subset(ds, (ds$time < hour_utc + days(2) & ds$time >= hour_utc))
+    l_test_ex <- subset(l_test, select = c(4:11, 12,13,15,16,18,19,21,22,24,25,27,28,30,31,33,34,36:76))
+    results <- forecast(fit2, xreg=l_test_ex)$mean
+    pred <- results
+    next
+  }
+  
+  # Skip if last day
+  if(i > 104){
+    next
+  }
+
+  # Select window for reestimating model (last 24 hours, train) and forecasting (next 48 hours, test)
+  l_training <- subset(ds, ds$time<hour_utc)
+  l_test <- subset(ds, (ds$time < hour_utc + days(2) & ds$time >= hour_utc))
+  l_training <- subset(l_training, select = -c(weekday_0, hour_0, month_1))
+  l_test <- subset(l_test, select = -c(weekday_0, hour_0, month_1))
+  l_training_ex <- subset(l_training, select = c(4:11, 12,13,15,16,18,19,21,22,24,25,27,28,30,31,33,34,36:76))
+  l_test_ex <- subset(l_test, select = c(4:11, 12,13,15,16,18,19,21,22,24,25,27,28,30,31,33,34,36:76))
+  
+  # Reestimate model with new data
+  refit <- Arima(l_training$actual, order[1:3], seasonal=FALSE, xreg=l_training_ex)
+  results <- forecast(refit, xreg=l_test_ex)$mean
+  
+  # Actually the t+25:t+48 forecasts are required for comparison with ENTSOE
+  pred2 <- c(pred2, results[25:48])
+}
+write.csv(pred2, file="arma_rolling_fc2.csv")
+```
+
+```
 
