@@ -36,10 +36,11 @@ This will install also already most of the packages used in this project and wil
 
 Different "categories" (named data modules in the data helper functions...) of models have been defined and then for each category, a number of models based on possible parameter combinations have been estimated:
 
-* [Model 2](notebooks/2_entsoe_forecast_only.ipynb): Using only the ENTSO-E forecast as input.
-* [Model 3](notebooks/3_calendar_only.ipynb): Using only the calendar dummy variables as input.
-* [Model 4](notebooks/4_weather_only.ipynb): Using only the weather data as input.
-* [Model 5](notebooks/5_weather_calendar.ipynb): Using weather data and calendar dummies as input.
+* [Model 1](notebooks/1_entsoe_forecast_only.ipynb): Using only the ENTSO-E forecast as input.
+* [Model 2](notebooks/2_calendar_only.ipynb): Using only the calendar dummy variables as input.
+* [Model 3](notebooks/3_weather_only.ipynb): Using only the weather data as input.
+* [Model 4](notebooks/4_entsoe_calendar.ipynb): Using ENTSO-E and calendar data as input.
+* [Model 5](notebooks/5_calendar_weather.ipynb): Using weather data and calendar dummies as input.
 * [Model 6](notebooks/6_all_modules.ipynb): Using ENTSO-E, calendar and weather as input. 
 
 The [LSTM model results notebook](notebooks/lstm_model_results.ipynb) then combines all results.
