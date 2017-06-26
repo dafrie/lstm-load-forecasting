@@ -44,7 +44,7 @@ Different "categories" (named data modules in the data helper functions...) of m
 * [Model 6](notebooks/6_all_modules.ipynb): Using ENTSO-E, calendar and weather as input. 
 
 The [LSTM model results notebook](notebooks/lstm_model_results.ipynb) then combines all results.
-The best models models in category 4, 5 6 then are compared in the [Forecast Comparison](notebooks/forecast_comparison.ipynb) notebook with a TBATS and a ARIMA model forecasts that have been generated in the respective R notebooks.
+The best models models in category 4, 5 and 6 then are compared in the [Forecast Comparison](notebooks/forecast_comparison.ipynb) notebook with a TBATS and a ARIMA model forecasts that have been generated in the respective R notebooks.
 The comparison then is further extended with rolling window (static, using at each time step the newly available data) in the [Rolling Forecast](notebooks/rolling_forecast.ipynb) notebook.
 
 
